@@ -21,5 +21,5 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Lint Terraform Module Documentation
-        uses: craigsloggett-lab/lint-terraform-docs@v1
+        uses: craigsloggett/lint-terraform-docs@v1
 ```
