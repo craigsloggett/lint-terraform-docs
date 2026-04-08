@@ -2,10 +2,27 @@ name: Lint Terraform Module Documentation
 
 description: A composite action for linting Terraform module documentation.
 
+inputs:
+  terraform-docs-version:
+    description: The version of terraform-docs to use.
+    default: 0.22.0
+    required: false
+    type: string
+
 runs:
   using: composite
   steps:
+    - name: Setup terraform-docs
+      run: ${{ github.action_path }}/src/setup_terraform_docs.sh
+      shell: sh
+      env:
+        TERRAFORM_DOCS_VERSION: ${{ inputs.terraform-docs-version }}
+
+    - name: Configure terraform-docs
+      run: ${{ github.action_path }}/src/emit_terraform_docs_yml.sh
+      shell: sh
+
     - name: Lint Terraform Module Documentation
-      uses: terraform-docs/gh-actions@6de6da0cefcc6b4b7a5cbea4d79d97060733093c # v1.4.1
-      with:
-        fail-on-diff: true
+      run: |-
+        terraform-docs --output-check .
+      shell: sh
