@@ -7,7 +7,6 @@ inputs:
     description: The version of terraform-docs to use.
     default: 0.24.0
     required: false
-    type: string
 
 runs:
   using: composite
